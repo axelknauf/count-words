@@ -2,14 +2,21 @@
   (:require clojure.string)
   (:import (java.io BufferedReader FileReader)))
 
-(defn process-file [file-name]
-  (let [countedwords {}]
-    (with-open [rdr (BufferedReader. (FileReader. file-name))]
-      (doseq [line (line-seq rdr)]
-        (let [words (clojure.string/split line #" ")]
-          (doseq [word words]
-            (let [kw (keyword word)
-                  kwcount (or (kw countedwords) 0)]
-              (println kw kwcount))))))))
+(defn count-words [file-name]
+  (let [all-words (clojure.string/split (slurp file-name) #" ")]
+    (loop [word (first all-words)
+           words (rest all-words)
+           counted {}]
+      (println word)
+      (if (empty? words)
+        counted
+        (let [kw (keyword word)
+              amount (or (kw counted) 0)]
+          (println kw amount)
+          (recur (first words)
+                 (rest words)
+                 (assoc counted kw (inc amount))))))))
 
-(process-file "README.md")
+(count-words "README.md")
+
+
