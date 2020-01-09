@@ -1,22 +1,21 @@
 (ns second.core
-  (:require clojure.string)
-  (:import (java.io BufferedReader FileReader)))
+  (:require [clojure.string :refer [split trim]]))
 
-(defn count-words [file-name]
-  (let [all-words (clojure.string/split (slurp file-name) #" ")]
-    (loop [word (first all-words)
-           words (rest all-words)
-           counted {}]
-      (println word)
-      (if (empty? words)
-        counted
-        (let [kw (keyword word)
-              amount (or (kw counted) 0)]
-          (println kw amount)
-          (recur (first words)
-                 (rest words)
-                 (assoc counted kw (inc amount))))))))
+(defn count-words [all-words]
+  (loop [word (first all-words)
+         words (rest all-words)
+         counted {}]
+    (if (nil? word)
+      counted
+      (let [kw (keyword (trim word))
+            amount (or (kw counted) 0)]
+        (recur (first words)
+               (rest words)
+               (assoc counted kw (inc amount)))))))
 
-(count-words "README.md")
+(defn count-words-from-file [file-name]
+  (let [all-words (split (slurp file-name) #" ")]
+    (count-words all-words)))
 
+(count-words-from-file "README.md")
 
