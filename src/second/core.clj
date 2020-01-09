@@ -3,10 +3,13 @@
   (:import (java.io BufferedReader FileReader)))
 
 (defn process-file [file-name]
-  (let [words {}]
+  (let [countedwords {}]
     (with-open [rdr (BufferedReader. (FileReader. file-name))]
       (doseq [line (line-seq rdr)]
         (let [words (clojure.string/split line #" ")]
-          (println words))))))
+          (doseq [word words]
+            (let [kw (keyword word)
+                  kwcount (or (kw countedwords) 0)]
+              (println kw kwcount))))))))
 
 (process-file "README.md")
