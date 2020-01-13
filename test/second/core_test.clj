@@ -20,5 +20,15 @@
     (is (= (:bar actual) 1))
     (is (= (:baz actual) 1))))
 
+;(deftest does-not-count-empty-words
+;  (testing "does not count empty words")
+;  (let [words ["foo" "" "baz"]
+;        actual (count-words words)]
+;    (is (= (count actual) 2))
+;    (is (= (:foo actual) 1))
+;    (is (= (:baz actual) 1))))
+
 ; works for empty strings or nil
+; removes interpunctation, at least leading/trailing
+
 
