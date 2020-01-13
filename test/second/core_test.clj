@@ -28,7 +28,11 @@
     (is (= (:foo actual) 1))
     (is (= (:baz actual) 1))))
 
-; works for empty strings or nil
-; removes interpunctation, at least leading/trailing
-
+(deftest removes-surrounding-interpunctation
+  (testing "removes leading and trailing interpunctation")
+  (let [words [".foo" "bar;" "';baz ?!"]
+        actual (count-words words)]
+    (is (= (:foo actual) 1))
+    (is (= (:bar actual) 1))
+    (is (= (:baz actual) 1))))
 
