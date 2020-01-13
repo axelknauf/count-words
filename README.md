@@ -2,6 +2,10 @@
 
 A Clojure library designed to count words from a text document.
 
+## Build status
+
+[![Actions Status](https://github.com/axelknauf/count-words/workflows/Clojure%20CI/badge.svg)](https://github.com/axelknauf/count-words/actions)
+
 ## Usage
 
 Change the filename in core.clj and run it.
