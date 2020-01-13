@@ -44,3 +44,11 @@
     (is (= (:bar actual) 1))
     (is (= (:baz234 actual) 1))))
 
+(deftest removes-embedded-blanks
+  (testing "removes embedded blanks from words")
+  (let [words ["f oo" "ba  r" "b a z"]
+        actual (count-words words)]
+    (is (= (:foo actual) 1))
+    (is (= (:bar actual) 1))
+    (is (= (:baz actual) 1))))
+
