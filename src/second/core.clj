@@ -4,18 +4,22 @@
 (defn cleanup-word [word]
   (keyword (trim word)))
 
+; needs more work, this will not suffice for exotic (key-)words
+(defn shall-process [word]
+  (not (empty? (name word))))
+
 (defn count-words [all-words]
   (loop [word (first all-words)
          words (rest all-words)
          counted {}]
     (if (nil? word)
       counted
-      ; TODO extract into a preprocess function
       (let [kw (cleanup-word word)
-            amount (or (kw counted) 0)]
-        (recur (first words)
-               (rest words)
-               (assoc counted kw (inc amount)))))))
+            amount (or (kw counted) 0)
+            new-counted (if (shall-process kw)
+                          (assoc counted kw (inc amount))
+                          counted)]
+        (recur (first words) (rest words) new-counted)))))
 
 (defn count-words-from-file [file-name]
   (let [all-words (split (slurp file-name) #" ")]
