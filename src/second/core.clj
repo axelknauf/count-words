@@ -25,5 +25,8 @@
   (let [all-words (split (slurp file-name) #" ")]
     (count-words all-words)))
 
-(count-words-from-file "README.md")
+(defn -main
+  "Entry point to this app, counts words in README.md."
+  [& args]
+  (println (count-words-from-file "README.md")))
 
