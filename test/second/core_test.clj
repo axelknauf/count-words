@@ -36,3 +36,11 @@
     (is (= (:bar actual) 1))
     (is (= (:baz actual) 1))))
 
+(deftest removes-leading-num
+  (testing "removes leading numbers from words")
+  (let [words ["123foo" "99bar" "baz234"]
+        actual (count-words words)]
+    (is (= (:foo actual) 1))
+    (is (= (:bar actual) 1))
+    (is (= (:baz234 actual) 1))))
+

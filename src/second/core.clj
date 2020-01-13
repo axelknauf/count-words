@@ -2,7 +2,11 @@
   (:require [clojure.string :refer [split trim]]))
 
 (defn cleanup-word [word]
-  (keyword (trim (clojure.string/replace word #"[^a-zA-Z0-9]" ""))))
+  (-> word
+      (clojure.string/replace #"[^a-zA-Z0-9]" "")
+      (clojure.string/replace #"^[0-9]+" "")
+      (trim)
+      (keyword)))
 
 ; needs more work, this will not suffice for exotic (key-)words
 (defn shall-process [word]
