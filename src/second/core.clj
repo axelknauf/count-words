@@ -3,8 +3,9 @@
 
 (defn cleanup-word [word]
   (-> word
-      (clojure.string/replace #"[^a-zA-Z0-9]" "")
+      (clojure.string/replace #"[^a-zA-Z0-9 ]" "")
       (clojure.string/replace #"^[0-9]+" "")
+      (clojure.string/replace #" " "")
       (trim)
       (keyword)))
 
