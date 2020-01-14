@@ -1,7 +1,7 @@
 (ns second.core
   (:require [clojure.string :refer [split trim]]))
 
-(defn cleanup-word [word]
+(defn cleanup [word]
   (-> word
       (clojure.string/replace #"[^a-zA-Z0-9 ]" "")
       (clojure.string/replace #"^[0-9]+" "")
@@ -10,7 +10,7 @@
       (keyword)))
 
 ; needs more work, this will not suffice for exotic (key-)words
-(defn shall-process [word]
+(defn shall-process? [word]
   (not (empty? (name word))))
 
 (defn count-words [all-words]
@@ -19,9 +19,9 @@
          counted {}]
     (if (nil? word)
       counted
-      (let [kw (cleanup-word word)
+      (let [kw (cleanup word)
             amount (or (kw counted) 0)
-            new-counted (if (shall-process kw)
+            new-counted (if (shall-process? kw)
                           (assoc counted kw (inc amount))
                           counted)]
         (recur (first words) (rest words) new-counted)))))
